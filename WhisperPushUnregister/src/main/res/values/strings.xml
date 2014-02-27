@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WhisperPushUnregister</string>
+    <string name="unregister">Unregister</string>
+
+    <string name="state_reading_preferences">Reading WhisperPush Preferences</string>
+    <string name="state_unregistering">Unregistering</string>
+    <string name="state_wiping">Wiping WhisperPush data</string>
+    <string name="state_finished">Success!</string>
+    <string name="state_error">Oops!  Something went wrong!</string>
+
+</resources>
