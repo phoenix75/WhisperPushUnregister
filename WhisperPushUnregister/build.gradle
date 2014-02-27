@@ -1,3 +1,6 @@
+Properties props = new Properties()
+props.load(new FileInputStream(file("../keystore.properties")))
+
 buildscript {
     repositories {
         mavenCentral()
@@ -19,6 +22,21 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 19
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../whisperunregister.keystore")
+            storePassword props['keystore.password']
+            keyAlias "whisperunregister"
+            keyPassword props['keystore.password']
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 }
 
