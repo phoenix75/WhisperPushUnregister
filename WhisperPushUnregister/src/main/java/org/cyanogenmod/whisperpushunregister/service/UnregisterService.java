@@ -13,6 +13,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
+import org.cyanogenmod.whisperpushunregister.PreferenceReadException;
 import org.cyanogenmod.whisperpushunregister.PreferenceReader;
 
 import java.io.BufferedReader;
@@ -50,7 +51,13 @@ public class UnregisterService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "onHandleIntent");
-        readPreferences();
+        try {
+            readPreferences();
+        } catch (PreferenceReadException e) {
+            updateState(UnregisterState.ERROR);
+            Log.e(TAG, "PreferenceReadException", e);
+            return;
+        }
         unregister();
     }
 
@@ -118,7 +125,7 @@ public class UnregisterService extends IntentService {
         updateState(UnregisterState.FINISHED);
     }
 
-    private void readPreferences() {
+    private void readPreferences() throws PreferenceReadException {
         updateState(UnregisterState.READING_PREFERENCES);
         if (mPreferenceReader == null) mPreferenceReader = new PreferenceReader();
     }

@@ -28,11 +28,15 @@ public class PreferenceReader {
 
     private HashMap<String, String> preferenceValues = new HashMap<String, String>();
 
-    public PreferenceReader() {
-        String xml = readPreferenceXml();
-        InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = getDocument(xmlInputStream);
-        parseDocument(document);
+    public PreferenceReader() throws PreferenceReadException {
+        try {
+            String xml = readPreferenceXml();
+            InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
+            Document document = getDocument(xmlInputStream);
+            parseDocument(document);
+        } catch (Exception e) {
+            throw new PreferenceReadException(e);
+        }
     }
 
     private static Document getDocument(InputStream inputStream) {

@@ -114,7 +114,6 @@ public class MainActivity extends Activity {
                     mStateText.setText(getString(R.string.state_error));
                     mProgressBar.setVisibility(View.GONE);
                     mStartButton.setVisibility(View.VISIBLE);
-                    mInstructionsText.setVisibility(View.VISIBLE);
                     break;
             }
         }
