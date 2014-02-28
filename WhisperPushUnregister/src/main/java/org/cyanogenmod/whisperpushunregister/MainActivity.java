@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
     private Button mStartButton;
     private TextView mStateText;
     private ProgressBar mProgressBar;
+    private TextView mInstructionsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,15 @@ public class MainActivity extends Activity {
     private void setupResources() {
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mStateText = (TextView) findViewById(R.id.state_text);
+        mInstructionsText = (TextView) findViewById(R.id.instructions);
+        mInstructionsText.setMovementMethod(LinkMovementMethod.getInstance());
 
         mStartButton = (Button) findViewById(R.id.button);
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mStartButton.setVisibility(View.GONE);
+                mInstructionsText.setVisibility(View.GONE);
                 mStateText.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.VISIBLE);
                 UnregisterService.start(MainActivity.this);
@@ -109,6 +114,7 @@ public class MainActivity extends Activity {
                     mStateText.setText(getString(R.string.state_error));
                     mProgressBar.setVisibility(View.GONE);
                     mStartButton.setVisibility(View.VISIBLE);
+                    mInstructionsText.setVisibility(View.VISIBLE);
                     break;
             }
         }

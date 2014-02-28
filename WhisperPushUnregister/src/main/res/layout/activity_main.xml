@@ -25,6 +25,15 @@
         android:visibility="gone"
         android:layout_gravity="center_horizontal"/>
 
+    <TextView
+        android:id="@+id/instructions"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/instructions"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingBottom="20dip"/>
+
     <Button
         android:id="@+id/button"
         android:text="@string/unregister"
