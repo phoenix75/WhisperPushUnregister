@@ -3,6 +3,7 @@ package org.cyanogenmod.whisperpushunregister;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -15,12 +16,19 @@ public class Util {
     private static final String TAG = Util.class.getSimpleName();
     private static final String TRUST_STORE_PASSWORD = "whisper";
 
-    public static void getRoot() {
-        try {
-            Runtime.getRuntime().exec("su");
-        } catch (IOException e) {
-            Log.e(TAG,"IOException", e);
+    public static String findSuBinary() {
+        File xbin = new File("/system/xbin/su");
+        File bin = new File("/system/bin/su");
+
+        if (xbin.exists() && !xbin.isDirectory()) {
+            return xbin.getAbsolutePath();
         }
+
+        if (bin.exists() && !bin.isDirectory()) {
+            return bin.getAbsolutePath();
+        }
+
+        throw new RuntimeException("Unable to find su binary");
     }
 
     public static TrustManager[] getTrustManagers(Context context) {

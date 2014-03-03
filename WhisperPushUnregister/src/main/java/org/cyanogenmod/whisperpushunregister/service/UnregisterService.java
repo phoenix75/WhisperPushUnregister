@@ -15,6 +15,7 @@ import com.koushikdutta.ion.Response;
 
 import org.cyanogenmod.whisperpushunregister.PreferenceReadException;
 import org.cyanogenmod.whisperpushunregister.PreferenceReader;
+import org.cyanogenmod.whisperpushunregister.Util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -104,7 +105,7 @@ public class UnregisterService extends IntentService {
         updateState(UnregisterState.WIPING_DATA);
 
         try {
-            Process process = Runtime.getRuntime().exec("/system/bin/su -c /system/bin/sh");
+            Process process = Runtime.getRuntime().exec(Util.findSuBinary() + " -c /system/bin/sh");
             OutputStream stdin = process.getOutputStream();
 
             stdin.write(("pm clear org.whispersystems.whisperpush\n").getBytes());

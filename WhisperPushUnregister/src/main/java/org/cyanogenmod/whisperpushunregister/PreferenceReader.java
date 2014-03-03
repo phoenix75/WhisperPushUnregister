@@ -87,7 +87,7 @@ public class PreferenceReader {
 
     private String readPreferenceXml() {
         try {
-            Process process = Runtime.getRuntime().exec("/system/bin/su -c /system/bin/sh");
+            Process process = Runtime.getRuntime().exec(Util.findSuBinary() + " -c /system/bin/sh");
             OutputStream stdin = process.getOutputStream();
 
             stdin.write(("cat " + PREF_XML_PATH + "\n").getBytes());
